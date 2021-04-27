@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+var xhr = new XMLHttpRequest(),
+    method = "GET",
+    url = "https://swapi.dev/api/people/1/";
+
+xhr.open(method, url, true);
+xhr.onreadystatechange = function () {
+        //if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            
+            document.writeln(xhr.responseText);
+			console.log(xhr.status);
+        //}
+    };
+xhr.send();
+
+
+function download(filename, text) {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
+// Start file download.
+download("hello.txt","This is the content of my file :)");
+
+</script>
+</body>
+</html>

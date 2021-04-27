@@ -1,0 +1,20 @@
+<html lang="es">
+<head>
+	<title>js</title>
+</head>
+<body>
+	<h1>Ejecucion</h1>
+	<script type="text/javascript">
+	$.ajax({
+		  method: "GET",
+		  url: "https://swapi.dev/api/people/2/"
+		}).done(function(data) {
+		  alert(data); // imprimimos la respuesta
+		}).fail(function() {
+		  alert("Algo salió mal");
+		}).always(function() {
+		  alert("Siempre se ejecuta")
+	});
+  	</script>
+</body>
+</html>
