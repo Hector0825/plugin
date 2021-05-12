@@ -1,5 +1,5 @@
 # Plugin para diagrams.net desktop
-- Este plugin sirve para hacer llamadas a servicio web Chowlk el cual genera a partir de un XML su respectivo código OWL
+- Este plugin sirve para hacer llamadas al servicio web Chowlk el cual genera a partir de un XML su respectivo código OWL
 ## Como usar el plugin
 1. Descargar el plugin
 2. Abrir diamgrams.net desktop
