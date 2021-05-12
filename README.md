@@ -1,2 +1,2 @@
-# plugin
-Trabajo fin de grado del grado de Ingenieria Informática de la UPM
+# Trabajo fin de grado del grado de Ingenieria Informática de la UPM
+
