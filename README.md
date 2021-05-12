@@ -9,4 +9,4 @@
 6. Reiniciamos diagrams.net desktop
 
 ## Como usar el plugin
-Una vez cargado nos aparecerá en la barra de navegació una nueva opción llamada Chowlk la cual contiene la función de "Descargare código Chowlk". Una vez diseñado o cargado nuestro diagrama ontológico simplemente tenemos que darle a la opción mencionada y se nos dará la opción de guardar el código OWL generado así como su previsualización.
+Una vez cargado nos aparecerá en la barra de navegación una nueva opción llamada Chowlk la cual contiene la función de "Descargar código Chowlk". Una vez diseñado o cargado nuestro diagrama ontológico simplemente tenemos que darle a la opción mencionada y se nos dará la opción de guardar el código OWL generado así como su previsualización.
