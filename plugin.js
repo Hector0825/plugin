@@ -77,17 +77,7 @@ Draw.loadPlugin(function(ui){
 
 	    //DESCARGAR CODIGO CHOWLK
 	    ui.actions.addAction('Descargar', function() {
-	    	var graph = ui.editor.graph;
-			var encoder = new mxCodec(mxUtils.createXmlDocument());
-			var node = encoder.encode(graph.getModel());
-			var str1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mxfile>\n<diagram>\n";
-			var str2 = "</diagram>\n</mxfile>";
-			var xml = mxUtils.getPrettyXml(node);
-			var final = str1 + xml + str2;
-			const path = require('path');
-
-			fs.mkdir(path.join('/', 'DiagramsTmpXml'), (err) => {});
-			fs.appendFile('/DiagramsTmpXml/tmpXml.xml', final,(error)=>{});
+	    	cargar();
 			
 			execute('ping -c 4 0.0.0.0', (a) => {			    
 				mxUtils.popup(a,true);
@@ -103,17 +93,8 @@ Draw.loadPlugin(function(ui){
 		
 		//COMPROBAR ERRORES
 	    ui.actions.addAction('Errores', function(){	 
-	    	var graph = ui.editor.graph;
-			var encoder = new mxCodec(mxUtils.createXmlDocument());
-			var node = encoder.encode(graph.getModel());
-			var str1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mxfile>\n<diagram>\n";
-			var str2 = "</diagram>\n</mxfile>";
-			var xml = mxUtils.getPrettyXml(node);
-			var final = str1 + xml + str2;
-			const path = require('path');
+			cargar();
 
-			fs.mkdir(path.join('/', 'DiagramsTmpXml'), (err) => {});
-			fs.appendFile('/DiagramsTmpXml/tmpXml.xml', final,(error)=>{});
 	    	var bool = true;
 			//Llamada a Curl
 			execute_err('ping -c 4 0.0.0.0', (a) => {
@@ -164,9 +145,10 @@ Draw.loadPlugin(function(ui){
 
 				errores = errores.toString();
 				errores = errores.replaceAll(',','');
-				mxUtils.alert(errores);
+				
 
 				if(bool==true){
+					mxUtils.alert(errores);
 					download("errores.txt",errores);
 				}
 			});
