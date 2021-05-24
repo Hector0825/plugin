@@ -72,8 +72,8 @@ Draw.loadPlugin(function(ui){
     borrar();
     //OPCIONES DEL MENU
 	if (ui.sidebar != null){
-	    mxResources.parse('Descargar=Descargar código Chowlk');
-	    mxResources.parse('Errores=Comprobar errores');
+	    mxResources.parse('Descargar=Download OWL code');
+	    mxResources.parse('Errores=Error checking');
 
 	    //DESCARGAR CODIGO CHOWLK
 	    ui.actions.addAction('Descargar', function() {
@@ -81,13 +81,13 @@ Draw.loadPlugin(function(ui){
 			
 			execute('ping -c 4 0.0.0.0', (a) => {			    
 				mxUtils.popup(a,true);
-			    download("diagrama.ttl", a);
+			    download("diagram.ttl", a);
 			});
 			execute_err('ping -c 4 0.0.0.0', (a) => {			    
 				var buscar = "shape_id";	
 				var posicion = a.toLowerCase().indexOf(buscar.toLowerCase());
 				if (posicion !== -1)
-				    mxUtils.alert("Hay errores en el diagrama, código OWL incompleto, utilice la opcion de comprobar errores")			 
+				    mxUtils.alert("There are errors in the diagram, incomplete OWL code, use the option to check errors")			 
 				});
 	    });	 
 		
@@ -101,13 +101,13 @@ Draw.loadPlugin(function(ui){
 				var buscar = "shape_id";	
 				var posicion = a.toLowerCase().indexOf(buscar.toLowerCase());
 				if (posicion !== -1){
-				    mxUtils.alert("Hay errores en el diagrama");
+				    mxUtils.alert("There are errors in the diagram");
 					
 				}
 				else{
 					bool = false;
 					fs.rm('/DiagramsTmpXml/tmpXml.xml', { recursive:true }, (err) => {});
-				    mxUtils.alert("No hay errores en el diagrama");
+				    mxUtils.alert("There aren't errors in the diagram");
 
 				}
 
@@ -138,7 +138,7 @@ Draw.loadPlugin(function(ui){
 			  	var err;
 			  	var errores = new Array();
 				for(var i=0 ; i<arr_id.length; i++){
-				err = 'Hay errores en la etiqueta con id "'+arr_id[i]+ '" cuyo error es "'+
+				err = 'There are errors in the tag with id "'+arr_id[i]+ '" whose error is "'+
 						arr_msg[i]+'"\n';
 						errores[i] = err;
 				}
@@ -149,7 +149,7 @@ Draw.loadPlugin(function(ui){
 
 				if(bool==true){
 					mxUtils.alert(errores);
-					download("errores.txt",errores);
+					download("errors.txt",errores);
 				}
 			});
 		});
