@@ -87,7 +87,7 @@ Draw.loadPlugin(function(ui){
 				var buscar = "shape_id";	
 				var posicion = a.toLowerCase().indexOf(buscar.toLowerCase());
 				if (posicion !== -1)
-				    mxUtils.alert("There are errors in the diagram, incomplete OWL code, use check error options")			 
+				    mxUtils.alert("Error on the diagram, the OWL code is incomplete. Please use the option to check the error")			 
 				});
 	    });	 
 		
