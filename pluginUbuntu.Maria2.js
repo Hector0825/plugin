@@ -83,8 +83,14 @@ Draw.loadPlugin(function(ui){
 				    mxUtils.alert("Error on the diagram, the OWL code is incomplete. Please use the option to check the error")			 
 					
 					execute('ping -c 4 0.0.0.0', (a) => {			    
-						mxUtils.popup(a,true);
-						download("diagram.ttl", a);
+						var buscar = "IndexError";
+						var posicion = a.toLowerCase().indexOf(buscar.toLowerCase());
+						if (posicion !== -1)
+						    mxUtils.alert("The diagram doesn't exist or isn't an ontology")
+						else{
+							mxUtils.popup(a,true);
+							download("diagrama.ttl", a);
+						}
 					});	
 			});	
 	    });	 
@@ -99,17 +105,9 @@ Draw.loadPlugin(function(ui){
 				var buscar = "shape_id";	
 				var posicion = a.toLowerCase().indexOf(buscar.toLowerCase());
 				if (posicion !== -1){
-				    mxUtils.alert("There are errors in the diagram");
-					
-				}
-				else{
-					bool = false;
-					//fs.rm('/Users/mpoveda/"tmpXml.xml" https://chowlk.linkeddata.es/api', { recursive:true }, (err) => {});
-				    mxUtils.alert("There aren't errors in the diagram");
+				    mxUtils.alert("There are errors in the diagram");					
 
-				}
-
-			    var datos = JSON.parse(a);
+				var datos = JSON.parse(a);
 
 				var arrows_id = agregar_id(datos.Arrows);
 			    var attributes_id = agregar_id(datos.Attributes);
@@ -143,12 +141,28 @@ Draw.loadPlugin(function(ui){
 
 				errores = errores.toString();
 				errores = errores.replaceAll(',','');
-				
+				mxUtils.alert(errores);
 
 				if(bool==true){
-					mxUtils.alert(errores);
 					download("errors.txt",errores);
 				}
+				}
+				else{
+					bool = false;
+					//fs.rm('/tmp/"tmpXml.xml" https://chowlk.linkeddata.es/api', { recursive:true }, (err) => {});
+				    var buscar = "IndexError";
+					var posicion = a.toLowerCase().indexOf(buscar.toLowerCase());
+					if (posicion !== -1){
+				    	mxUtils.alert("The diagram doesn't exist or isn't an ontology")
+					}
+					else{
+				    mxUtils.alert("There aren't errors in the diagram");
+					}
+
+				}
+
+
+
 			});
 		});
 
