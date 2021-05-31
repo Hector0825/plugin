@@ -12,6 +12,7 @@ Draw.loadPlugin(function(ui){
 		const path = require('path');
 
 		fs.writeFile("/Users/mpoveda/Downloads/tmpXml.xml", final, function(err) {
+
 		}); 	
 
 	}
@@ -105,47 +106,48 @@ Draw.loadPlugin(function(ui){
 				var buscar = "shape_id";	
 				var posicion = a.toLowerCase().indexOf(buscar.toLowerCase());
 				if (posicion !== -1){
-				    mxUtils.alert("There are errors in the diagram");					
+				    mxUtils.alert("There are errors in the diagram");
 
-				var datos = JSON.parse(a);
+					var datos = JSON.parse(a);
 
-				var arrows_id = agregar_id(datos.Arrows);
-			    var attributes_id = agregar_id(datos.Attributes);
-			    var concepts_id = agregar_id(datos.Concepts); 
-			    var ellipses_id = agregar_id(datos.Ellipses);
-			    var metadata_id = agregar_id(datos.Metadata);
-			    var namespaces_id = agregar_id(datos.Namespaces);
-			    var rhombuses_id = agregar_id(datos.Rhombuses);
+					var arrows_id = agregar_id(datos.Arrows);
+				    var attributes_id = agregar_id(datos.Attributes);
+				    var concepts_id = agregar_id(datos.Concepts); 
+				    var ellipses_id = agregar_id(datos.Ellipses);
+				    var metadata_id = agregar_id(datos.Metadata);
+				    var namespaces_id = agregar_id(datos.Namespaces);
+				    var rhombuses_id = agregar_id(datos.Rhombuses);
 
-			    var arrows_msg = agregar_msg(datos.Arrows);
-			    var attributes_msg = agregar_msg(datos.Attributes);
-			    var concepts_msg = agregar_msg(datos.Concepts); 
-			    var ellipses_msg = agregar_msg(datos.Ellipses);
-			    var metadata_msg = agregar_msg(datos.Metadata);
-			    var namespaces_msg = agregar_msg(datos.Namespaces);
-			    var rhombuses_msg = agregar_msg(datos.Rhombuses);
+				    var arrows_msg = agregar_msg(datos.Arrows);
+				    var attributes_msg = agregar_msg(datos.Attributes);
+				    var concepts_msg = agregar_msg(datos.Concepts); 
+				    var ellipses_msg = agregar_msg(datos.Ellipses);
+				    var metadata_msg = agregar_msg(datos.Metadata);
+				    var namespaces_msg = agregar_msg(datos.Namespaces);
+				    var rhombuses_msg = agregar_msg(datos.Rhombuses);
 
-			    var arr_id = arrows_id.concat(attributes_id, concepts_id, ellipses_id,
-			    	 metadata_id,namespaces_id, rhombuses_id);
+				    var arr_id = arrows_id.concat(attributes_id, concepts_id, ellipses_id,
+				    	 metadata_id,namespaces_id, rhombuses_id);
 
-			    var arr_msg = arrows_id.concat(attributes_msg, concepts_msg, ellipses_msg, 
-			    	metadata_msg, namespaces_msg, rhombuses_msg);
-			  	
-			  	var err;
-			  	var errores = new Array();
-				for(var i=0 ; i<arr_id.length; i++){
-				err = 'There are errors in the tag with id "'+arr_id[i]+ '" whose error is "'+
-						arr_msg[i]+'"\n';
-						errores[i] = err;
-				}
+				    var arr_msg = arrows_id.concat(attributes_msg, concepts_msg, ellipses_msg, 
+				    	metadata_msg, namespaces_msg, rhombuses_msg);
+				  	
+				  	var err;
+				  	var errores = new Array();
+					for(var i=0 ; i<arr_id.length; i++){
+					err = 'There are errors in the tag with id "'+arr_id[i]+ '" whose error is "'+
+							arr_msg[i]+'"\n';
+							errores[i] = err;
+					}
 
-				errores = errores.toString();
-				errores = errores.replaceAll(',','');
-				mxUtils.alert(errores);
+					errores = errores.toString();
+					errores = errores.replaceAll(',','');
+					mxUtils.alert(errores);
 
-				if(bool==true){
-					download("errors.txt",errores);
-				}
+					if(bool==true){						
+						download("errors.txt",errores);
+					}
+					
 				}
 				else{
 					bool = false;
@@ -160,7 +162,6 @@ Draw.loadPlugin(function(ui){
 					}
 
 				}
-
 
 
 			});
