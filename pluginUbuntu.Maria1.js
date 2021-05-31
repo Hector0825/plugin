@@ -104,7 +104,7 @@ Draw.loadPlugin(function(ui){
 				}
 				else{
 					bool = false;
-					fs.rm('/Users/mpoveda/Downloads/"tmpXml.xml" https://chowlk.linkeddata.es/api', { recursive:true }, (err) => {});
+					//fs.rm('/Users/mpoveda/Downloads/"tmpXml.xml" https://chowlk.linkeddata.es/api', { recursive:true }, (err) => {});
 				    mxUtils.alert("There aren't errors in the diagram");
 
 				}
