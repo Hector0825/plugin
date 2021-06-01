@@ -49,22 +49,19 @@ Draw.loadPlugin(function(ui){
 
     function agregar_id(dato){
         var arr = dato
-        .map(x => x.shape_id)
-        .filter((x, index, self) => self.indexOf(x) === index);
+        .map(x => x.shape_id)       
         return arr;
     }
 
     function agregar_msg(dato){
         var arr = dato
-        .map(x => x.message)
-        .filter((x, index, self) => self.indexOf(x) === index);
+        .map(x => x.message)       
         return arr;
     }
 
     function agregar_value(dato){
         var arr = dato
-        .map(x => x.value)
-        .filter((x, index, self) => self.indexOf(x) === index);
+        .map(x => x.value)        
         return arr;
     }
 
