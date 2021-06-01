@@ -31,16 +31,16 @@ Draw.loadPlugin(function(ui){
 	const exec = require('child_process').exec;
 	const fs = require('fs');
 	function execute(command, callback) {				
-	    var a = exec('curl -F data=@/DiagramsTmpXml/"tmpXml.xml" https://chowlk.linkeddata.es/api' , (error, stdout, stderr) => {
-	    	callback(stdout);			        
-	        fs.rm('/DiagramsTmpXml/tmpXml.xml', { recursive:true }, (err) => {})
+		var a = exec('curl -F data=@/DiagramsTmpXml/"tmpXml.xml" https://chowlk.linkeddata.es/api' , (error, stdout, stderr) => {
+			callback(stdout);			        
+			fs.rm('/DiagramsTmpXml/tmpXml.xml', { recursive:true }, (err) => {})
 		});
 	};
 
 	function execute_err(command, callback) {				
-	    var a = exec('curl -F data=@/DiagramsTmpXml/"tmpXml.xml" https://chowlk.linkeddata.es/errors' , (error, stdout, stderr) => {
-	    	callback(stdout);			        
-	        fs.rm('/DiagramsTmpXml/tmpXml.xml', { recursive:true }, (err) => {})
+		var a = exec('curl -F data=@/DiagramsTmpXml/"tmpXml.xml" https://chowlk.linkeddata.es/errors' , (error, stdout, stderr) => {
+			callback(stdout);			        
+			fs.rm('/DiagramsTmpXml/tmpXml.xml', { recursive:true }, (err) => {})
 		});
 	};
 
@@ -48,95 +48,92 @@ Draw.loadPlugin(function(ui){
 		fs.rmdir("/DiagramsTmpXml", () => {});
 	}
 
-    function agregar_id(dato){
-        var arr = dato
-        .map(x => x.shape_id)
-        .filter((x, index, self) => self.indexOf(x) === index);
-        return arr;
-    }
+	function agregar_id(dato){
+		var arr = dato
+		.map(x => x.shape_id)
+		return arr;
+	}
 
-    function agregar_msg(dato){
-        var arr = dato
-        .map(x => x.message)
-        .filter((x, index, self) => self.indexOf(x) === index);
-        return arr;
-    }
+	function agregar_msg(dato){
+		var arr = dato
+		.map(x => x.message)
+		return arr;
+	}
 
-    function agregar_value(dato){
-        var arr = dato
-        .map(x => x.value)
-        .filter((x, index, self) => self.indexOf(x) === index);
-        return arr;
-    }
+	function agregar_value(dato){
+		var arr = dato
+		.map(x => x.value)
+		return arr;
+	}
 
-    borrar();
+	borrar();
     //OPCIONES DEL MENU
-	if (ui.sidebar != null){
-	    mxResources.parse('Descargar=Download OWL code');
-	    mxResources.parse('Errores=Error checking');
+    if (ui.sidebar != null){
+    	mxResources.parse('Descargar=Download OWL code');
+    	mxResources.parse('Errores=Error checking');
 
 	    //DESCARGAR CODIGO CHOWLK
 	    ui.actions.addAction('Descargar', function() {
 	    	cargar();
-			
-			execute('ping -c 4 0.0.0.0', (a) => {			    
-				var buscar = "IndexError";
-				var posicion = a.toLowerCase().indexOf(buscar.toLowerCase());
-				if (posicion !== -1)
-				    mxUtils.alert("The diagram doesn't exist or isn't an ontology")
-				else{
-					mxUtils.popup(a,true);
-					download("diagrama.ttl", a);
-				}
-			});
-			execute_err('ping -c 4 0.0.0.0', (a) => {			    
-				var buscar = "shape_id";	
-				var posicion = a.toLowerCase().indexOf(buscar.toLowerCase());
-				if (posicion !== -1)
-				    mxUtils.alert("Error on the diagram, the OWL code is incomplete. Please use the option to check the error")			 
-				});
+	    	
+	    	execute('ping -c 4 0.0.0.0', (a) => {			    
+	    		var buscar = "IndexError";
+	    		var posicion = a.toLowerCase().indexOf(buscar.toLowerCase());
+	    		if (posicion !== -1)
+	    			mxUtils.alert("The diagram doesn't exist or isn't an ontology")
+	    		else{
+	    			mxUtils.popup(a,true);
+	    			download("diagrama.ttl", a);
+	    		}
+	    	});
+	    	execute_err('ping -c 4 0.0.0.0', (a) => {			    
+	    		var buscar = "shape_id";	
+	    		var posicion = a.toLowerCase().indexOf(buscar.toLowerCase());
+	    		if (posicion !== -1)
+	    			mxUtils.alert("Error on the diagram, the OWL code is incomplete. Please use the option to check the error")			 
+	    	});
 	    });	 		
 		//COMPROBAR ERRORES
-	    ui.actions.addAction('Errores', function(){	 
+		ui.actions.addAction('Errores', function(){	 
 			cargar();
 
-	    	var bool = true;
+			var bool = true;
 			//Llamada a Curl
 			execute_err('ping -c 4 0.0.0.0', (a) => {
 				var buscar = "shape_id";	
 				var posicion = a.toLowerCase().indexOf(buscar.toLowerCase());
 				if (posicion !== -1){
-				    mxUtils.alert("There are errors in the diagram");
+					mxUtils.alert("There are errors in the diagram");
 
-				    var datos = JSON.parse(a);
+					var datos = JSON.parse(a);
 					var arrows_id = agregar_id(datos.Arrows);
-				    var attributes_id = agregar_id(datos.Attributes);
-				    var concepts_id = agregar_id(datos.Concepts); 
-				    var ellipses_id = agregar_id(datos.Ellipses);
-				    var metadata_id = agregar_id(datos.Metadata);
-				    var namespaces_id = agregar_id(datos.Namespaces);
-				    var rhombuses_id = agregar_id(datos.Rhombuses);
+					var attributes_id = agregar_id(datos.Attributes);
+					var concepts_id = agregar_id(datos.Concepts); 
+					var ellipses_id = agregar_id(datos.Ellipses);
+					var metadata_id = agregar_id(datos.Metadata);
+					var namespaces_id = agregar_id(datos.Namespaces);
+					var rhombuses_id = agregar_id(datos.Rhombuses);
 
-				    var arrows_msg = agregar_msg(datos.Arrows);
-				    var attributes_msg = agregar_msg(datos.Attributes);
-				    var concepts_msg = agregar_msg(datos.Concepts); 
-				    var ellipses_msg = agregar_msg(datos.Ellipses);
-				    var metadata_msg = agregar_msg(datos.Metadata);
-				    var namespaces_msg = agregar_msg(datos.Namespaces);
-				    var rhombuses_msg = agregar_msg(datos.Rhombuses);
+					var arrows_msg = agregar_msg(datos.Arrows);
+					var attributes_msg = agregar_msg(datos.Attributes);
+					var concepts_msg = agregar_msg(datos.Concepts); 
+					var ellipses_msg = agregar_msg(datos.Ellipses);
+					var metadata_msg = agregar_msg(datos.Metadata);
+					var namespaces_msg = agregar_msg(datos.Namespaces);
+					var rhombuses_msg = agregar_msg(datos.Rhombuses);
 
-				    var arr_id = arrows_id.concat(attributes_id, concepts_id, ellipses_id,
-				    	 metadata_id,namespaces_id, rhombuses_id);
+					var arr_id = arrows_id.concat(attributes_id, concepts_id, ellipses_id,
+						metadata_id,namespaces_id, rhombuses_id);
 
-				    var arr_msg = arrows_msg.concat(attributes_msg, concepts_msg, ellipses_msg, 
-				    	metadata_msg, namespaces_msg, rhombuses_msg);
-				  	
-				  	var err;
-				  	var errores = new Array();
+					var arr_msg = arrows_msg.concat(attributes_msg, concepts_msg, ellipses_msg, 
+						metadata_msg, namespaces_msg, rhombuses_msg);
+					
+					var err;
+					var errores = new Array();
 					for(var i=0 ; i<arr_id.length; i++){
-					err = 'There are errors in the tag with id "'+arr_id[i]+ '" whose error is "'+
-							arr_msg[i]+'"\n';
-							errores[i] = err;
+						err = 'There are errors in the tag with id "'+arr_id[i]+ '" whose error is "'+
+						arr_msg[i]+'"\n';
+						errores[i] = err;
 					}
 
 					errores = errores.toString();
@@ -154,21 +151,20 @@ Draw.loadPlugin(function(ui){
 					var buscar = "IndexError";
 					var posicion = a.toLowerCase().indexOf(buscar.toLowerCase());
 					if (posicion !== -1){
-				    	mxUtils.alert("The diagram doesn't exist or isn't an ontology")
+						mxUtils.alert("The diagram doesn't exist or isn't an ontology")
 					}
 					else{
-				     mxUtils.alert("There aren't errors in the diagram");
+						mxUtils.alert("There aren't errors in the diagram");
 					}
 				}  
 			});
 		});
 	// Adds menu
-	    ui.menubar.addMenu('Chowlk', function(menu, parent) {
-	    	ui.menus.addMenuItem(menu, 'Descargar');
-	    	ui.menus.addMenuItem(menu, 'Errores');
-	    });
-	}
-	borrar();
+	ui.menubar.addMenu('Chowlk', function(menu, parent) {
+		ui.menus.addMenuItem(menu, 'Descargar');
+		ui.menus.addMenuItem(menu, 'Errores');
+	});
+}
+borrar();
 });
 
-	
